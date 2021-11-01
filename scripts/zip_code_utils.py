@@ -57,11 +57,11 @@ def search_by_zip(zip_):
 
 def zips_unique_create():
     try:
-        latlong_df = pd.read_hdf('.data_cache/data_zipcode_table.h5', 'df')
+        latlong_df = pd.read_hdf('.data_cache/data_latlong_table.h5', 'df')
     except FileNotFoundError:
         traffic_df = pd.read_csv('../../bigquery-geotab-intersection-congestion/train.csv')
         latlong_df = traffic_df[['IntersectionId', 'Latitude', 'Longitude']].drop_duplicates('IntersectionId')
-        latlong_df.to_hdf('./.data_cache/data_zipcode_table.h5', 'df')
+        latlong_df.to_hdf('./.data_cache/data_latlong_table.h5', 'df')
         print('caching')
 
     latlong_list = []
