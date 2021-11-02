@@ -3,12 +3,12 @@ import requests
 
 def get_user_key():
     try:
-        with open('.key_cache/key.txt', 'r') as fin:
+        with open('.key_cache/weather_key.txt', 'r') as fin:
             key = fin.read()
     except FileNotFoundError:
         print('User key not found. You can create an account here: https://home.openweathermap.org/')
         key = input('Please paste your key here: ')
-        with open('.key_cache/key.txt', 'w') as fout:
+        with open('.key_cache/weather_key.txt', 'w') as fout:
             fout.write(key)
     return key
 
