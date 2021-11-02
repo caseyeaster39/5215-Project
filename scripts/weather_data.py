@@ -39,8 +39,3 @@ def process_weather_response(resp):
         'clouds': resp['clouds']['all']
     }
     return output
-
-
-# For testing
-lat_long = (33, -97)
-print(weather_req_now(lat_long))
