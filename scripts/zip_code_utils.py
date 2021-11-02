@@ -68,6 +68,7 @@ def zips_unique_create():
 
     zips = pd.Series(find_zip(latlong_list))
     zips.to_hdf('./.data_cache/dataset_zips.h5', 'df')
+    print('caching...')
     return zips
 
 
