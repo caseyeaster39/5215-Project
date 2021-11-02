@@ -13,6 +13,7 @@ def find_zip(latlong_list):                                                 # Ta
     except FileNotFoundError:
         df = pd.read_csv('../ref/US_long_lat_to_zip.csv', dtype=str)        # Read from CSV
         df.to_hdf('./.data_cache/US_long_lat_to_zip.h5', 'df')              # Store as hdf5 for future
+        print('caching...')
     best_zips = []
     loop_num = 0
     for coord in latlong_list:                                              # Loop through input list
@@ -26,10 +27,10 @@ def find_zip(latlong_list):                                                 # Ta
             x_dif = (lat - x1)**2
             y_diff = (lon - y1)**2
             distance = np.sqrt(x_dif + y_diff)
-            if not best_zip_distance or distance < best_zip_distance:       # Checking for
+            if not best_zip_distance or distance < best_zip_distance:
                 best_zip_distance = distance
                 best_zip = row['ZIP']
-        best_zips.append(best_zip)                                          #
+        best_zips.append(best_zip)
         loop_num += 1
         print(loop_num)
     best_zips = list(set(best_zips))
@@ -62,7 +63,7 @@ def zips_unique_create():
         traffic_df = pd.read_csv('../../bigquery-geotab-intersection-congestion/train.csv')
         latlong_df = traffic_df[['IntersectionId', 'Latitude', 'Longitude']].drop_duplicates('IntersectionId')
         latlong_df.to_hdf('./.data_cache/data_latlong_table.h5', 'df')
-        print('caching')
+        print('caching...')
 
     latlong_list = []
     for _, row in latlong_df.iterrows():
