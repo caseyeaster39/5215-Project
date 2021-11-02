@@ -15,7 +15,6 @@ def find_zip(latlong_list):                                                 # Ta
         df.to_hdf('./.data_cache/US_long_lat_to_zip.h5', 'df')              # Store as hdf5 for future
         print('caching...')
     best_zips = []
-    loop_num = 0
     for coord in latlong_list:                                              # Loop through input list
         lat = coord[0]
         lon = coord[1]
@@ -31,8 +30,6 @@ def find_zip(latlong_list):                                                 # Ta
                 best_zip_distance = distance
                 best_zip = row['ZIP']
         best_zips.append(best_zip)
-        loop_num += 1
-        print(loop_num)
     best_zips = list(set(best_zips))
     return best_zips
 
