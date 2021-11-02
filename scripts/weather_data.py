@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def get_user_key():
@@ -23,12 +24,21 @@ def weather_req_now(latlong):
     resp = requests.get(request_url)
     resp.raise_for_status()
 
-    return resp.json()
+    resp = json.dumps(resp.json())
+    resp = process_weather_response(resp)
+    return resp
 
 
 def process_weather_response(resp):
-    # Format response data as needed
-    pass
+    resp = json.loads(resp)
+    output = {
+        'main': resp['weather'][0]['main'],
+        'temp_faren': (resp['main']['temp'] - 273.15) * 9/5 + 32,
+        'visibility': resp['visibility'],
+        'wind_speed': resp['wind']['speed'],
+        'clouds': resp['clouds']['all']
+    }
+    return output
 
 
 # For testing
