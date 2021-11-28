@@ -1,6 +1,9 @@
 import requests
 import json
 
+from meteostat import Point, Hourly
+from datetime import timedelta
+
 
 def get_user_key():
     try:
@@ -39,3 +42,13 @@ def process_weather_response(resp):
         'clouds': resp['clouds']['all']
     }
     return output
+
+
+def search_weather(lat, lon, start):
+    end = start + timedelta(days=1)
+
+    location = Point(lat, lon, 70)
+
+    hour_df = Hourly(location, start, end)
+    hour_df = hour_df.fetch()
+    return hour_df
