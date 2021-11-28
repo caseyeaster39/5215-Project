@@ -6,8 +6,12 @@ from datetime import datetime
 
 def find_additional_info(lat, lon, input_date=None):
     out_dict = {}
+
     if not input_date:
         input_date = datetime.now()
+    out_dict['Hour'] = input_date.hour
+    out_dict['Month'] = input_date.month
+    out_dict['Weekend'] = 0 if input_date.weekday() < 5 else 1
 
     latlong = (lat, lon)
 
